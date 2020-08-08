@@ -5,6 +5,13 @@ const commonConfig = require("./common.config");
 module.exports = (env, argv) => merge(commonConfig(env, argv), ({
     mode: 'development',
     target: 'web',
+    output: {
+        publicPath: "/"
+    },
+
+    devServer: {
+        historyApiFallback: true,
+    },
 
     module: {
         rules: [

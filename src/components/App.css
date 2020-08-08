@@ -1,0 +1,31 @@
+h1 {
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 1rem 0;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul :not(:last-child) {
+    border-right-color: darkgray;
+    border-right-style: solid;
+    border-right-width: 2px;
+}
+
+nav ul li {
+    display: inline;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+}
+
+nav ul li:hover {
+    background-color: lightgray;
+}
