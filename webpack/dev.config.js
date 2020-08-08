@@ -1,6 +1,8 @@
+const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const commonConfig = require("./common.config");
 
-module.exports = (env, argv) => ({
+module.exports = (env, argv) => merge(commonConfig(env, argv), ({
     mode: 'development',
 
     module: {
@@ -8,7 +10,6 @@ module.exports = (env, argv) => ({
             {
                 test: /\.css$/,
                 use: [
-                    'css-hot-loader',
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
@@ -39,4 +40,4 @@ module.exports = (env, argv) => ({
     plugins: [
         new MiniCssExtractPlugin(),
     ]
-});
+}));

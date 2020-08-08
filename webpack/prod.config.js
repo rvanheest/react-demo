@@ -1,11 +1,13 @@
 const webpack = require('webpack');
+const { merge } = require('webpack-merge');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MinifyPlugin = require("babel-minify-webpack-plugin");
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const commonConfig = require("./common.config");
 
-module.exports = (env, argv) => ({
+module.exports = (env, argv) => merge(commonConfig(env, argv), ({
     mode: 'production',
 
     output: {
@@ -62,4 +64,4 @@ module.exports = (env, argv) => ({
             name: 'vendor',
         },
     },
-});
+}));
