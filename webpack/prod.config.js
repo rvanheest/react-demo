@@ -9,10 +9,11 @@ const commonConfig = require("./common.config");
 
 module.exports = (env, argv) => merge(commonConfig(env, argv), ({
     mode: 'production',
+    target: 'web',
 
     output: {
         path: path.resolve(__dirname, '../dist'),
-        filename: 'bundle.js',
+        filename: '[name].bundle.[contenthash].js',
     },
 
     module: {
