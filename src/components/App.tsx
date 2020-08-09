@@ -4,30 +4,41 @@ import * as history from "history"
 import "./App.css"
 import CounterPage from "./counter/CounterPage"
 
+interface NavItemProps {
+    text: string
+    path: string
+}
+
+const NavItem = ({ text, path }: NavItemProps) => (
+    <li>
+        <Link to={path}>{text}</Link>
+    </li>
+)
+
 const Navigation = () => (
     <nav>
         <ul>
-            <li>
-                <Link to="/">Home</Link>
-            </li>
-            <li>
-                <Link to="/counter">Counter</Link>
-            </li>
+            <NavItem text="Home" path="/"/>
+            <NavItem text="Counter" path="/counter"/>
         </ul>
     </nav>
 )
 
 const App = () => (
     <div>
-        <h1>Demo apps</h1>
-        <Navigation/>
+        <header>
+            <h1>Demo apps</h1>
+            <Navigation/>
+        </header>
         <hr/>
-        <Switch>
-            <Route path="/" exact>
-                <p style={{textAlign: "center"}}>You're home!!!</p>
-            </Route>
-            <Route path="/counter" exact component={CounterPage}/>
-        </Switch>
+        <main>
+            <Switch>
+                <Route path="/" exact>
+                    <p style={{ textAlign: "center" }}>You're home!!!</p>
+                </Route>
+                <Route path="/counter" exact component={CounterPage}/>
+            </Switch>
+        </main>
     </div>
 )
 
