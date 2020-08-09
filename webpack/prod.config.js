@@ -14,6 +14,7 @@ module.exports = (env, argv) => merge(commonConfig(env, argv), ({
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].bundle.[contenthash].js',
+        chunkFilename: '[name].bundle.[contenthash].js',
     },
 
     module: {

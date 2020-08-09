@@ -3,7 +3,7 @@
     "outDir": "./dist/",
     "baseUrl": "./src",
     "target": "es2015",
-    "module": "es6",
+    "module": "es2020",
     "jsx": "react",
     "moduleResolution": "node",
     "esModuleInterop": true,

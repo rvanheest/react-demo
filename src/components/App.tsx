@@ -1,8 +1,6 @@
-import React from "react"
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom"
+import React, { Suspense } from "react"
+import { BrowserRouter, Link, Route, Switch, Redirect } from "react-router-dom"
 import "./App.css"
-import CounterPage from "./counter/CounterPage"
-import TodoPage from "./todo-list/TodoPage"
 
 interface NavItemProps {
     text: string
@@ -25,6 +23,9 @@ const Navigation = () => (
     </nav>
 )
 
+const CounterPage = React.lazy(() => import(/* webpackChunkName: "CounterPage" */"./counter/CounterPage"))
+const TodoPage = React.lazy(() => import(/* webpackChunkName: "TodoPage" */"./todo-list/TodoPage"))
+
 const App = () => (
     <>
         <header>
@@ -34,11 +35,14 @@ const App = () => (
         <hr/>
         <main>
             <Switch>
-                <Route path="/" exact>
-                    <p style={{ textAlign: "center" }}>You're home!!!</p>
-                </Route>
-                <Route path="/counter" exact component={CounterPage}/>
-                <Route path="/todolist" exact component={TodoPage}/>
+                <Suspense fallback={<div>Loading page...</div>}>
+                    <Route path="/" exact>
+                        <p style={{ textAlign: "center" }}>You're home!!!</p>
+                    </Route>
+                    <Route path="/counter" exact component={CounterPage}/>
+                    <Route path="/todolist" exact component={TodoPage}/>
+                    <Redirect to="/"/>
+                </Suspense>
             </Switch>
         </main>
     </>

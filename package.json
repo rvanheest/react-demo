@@ -4,7 +4,7 @@
   "main": "src/index.tsx",
   "scripts": {
     "start": "webpack-dev-server --open --hot --config webpack/dev.config.js",
-    "build": "webpack --config webpack/prod.config.js"
+    "build": "webpack --progress --config webpack/prod.config.js"
   },
   "dependencies": {
     "history": "^5.0.0",
