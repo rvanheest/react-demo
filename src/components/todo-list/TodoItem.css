@@ -1,0 +1,17 @@
+.todo .todoList li {
+    position: relative;
+}
+
+.todo .todoList li label {
+    margin-left: 10px;
+}
+
+.todo .todoList li label.completed {
+    text-decoration: line-through;
+}
+
+.todo .todoList li button.delete {
+    position: absolute;
+    right: 0;
+    border-radius: 20px;
+}
