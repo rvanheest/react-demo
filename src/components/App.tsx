@@ -1,6 +1,5 @@
 import React from "react"
-import { Router, Link, Route, Switch } from "react-router-dom"
-import * as history from "history"
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom"
 import "./App.css"
 import CounterPage from "./counter/CounterPage"
 
@@ -25,7 +24,7 @@ const Navigation = () => (
 )
 
 const App = () => (
-    <div>
+    <>
         <header>
             <h1>Demo apps</h1>
             <Navigation/>
@@ -39,13 +38,13 @@ const App = () => (
                 <Route path="/counter" exact component={CounterPage}/>
             </Switch>
         </main>
-    </div>
+    </>
 )
 
 export default () => (
     <React.StrictMode>
-        <Router history={history.createBrowserHistory()}>
+        <BrowserRouter>
             <App/>
-        </Router>
+        </BrowserRouter>
     </React.StrictMode>
 )
