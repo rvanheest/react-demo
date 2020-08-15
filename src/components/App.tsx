@@ -1,6 +1,9 @@
 import React, { Suspense } from "react"
-import { BrowserRouter, Link, Route, Switch, Redirect } from "react-router-dom"
+import { AnyAction, CombinedState, Store } from "redux"
+import { Provider } from "react-redux"
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom"
 import "./App.css"
+import { ReduxStore } from "../dux"
 
 interface NavItemProps {
     text: string
@@ -47,10 +50,16 @@ const App = () => (
     </>
 )
 
-export default () => (
+interface MainProps {
+    store: Store<CombinedState<ReduxStore>, AnyAction>
+}
+
+export default ({ store }: MainProps) => (
     <React.StrictMode>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>
 )
