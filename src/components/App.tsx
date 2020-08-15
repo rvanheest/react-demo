@@ -41,7 +41,6 @@ const App = () => (
                     </Route>
                     <Route path="/counter" exact component={CounterPage}/>
                     <Route path="/todolist" exact component={TodoPage}/>
-                    {/*<Redirect to="/"/>*/}
                 </Suspense>
             </Switch>
         </main>
