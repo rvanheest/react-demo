@@ -44,6 +44,9 @@ module.exports = (env, argv) => merge(commonConfig(env, argv), ({
 
     plugins: [
         new CleanWebpackPlugin(),
+        new webpack.DefinePlugin({
+            __DEVELOPMENT__: false,
+        }),
         new MiniCssExtractPlugin({
             filename: '[name].bundle.[contenthash].css',
             chunkFilename: '[name].bundle.[contenthash].css',
