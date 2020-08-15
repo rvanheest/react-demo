@@ -11,11 +11,18 @@ export interface TodoListItem {
 }
 
 const TodoPage = () => {
-    const [todoList, setTodoList] = useState<TodoListItem[]>([{
-        id: uuid(),
-        description: "add input form",
-        completed: false,
-    }, { id: uuid(), description: "add checkmarks", completed: false }])
+    const [todoList, setTodoList] = useState<TodoListItem[]>([
+        {
+            id: uuid(),
+            description: "add input form",
+            completed: false,
+        },
+        {
+            id: uuid(),
+            description: "add checkmarks",
+            completed: true,
+        },
+    ])
 
     function addTodoListItem(todo: string): void {
         setTodoList([...todoList, { id: uuid(), description: todo, completed: false }])
