@@ -3,7 +3,7 @@ import { AnyAction, CombinedState, Store } from "redux"
 import { Provider } from "react-redux"
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom"
 import "./App.css"
-import { ReduxStore } from "../dux"
+import { ReduxStore } from "../ducks"
 
 interface NavItemProps {
     text: string

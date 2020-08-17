@@ -1,10 +1,10 @@
 import { AnyAction, applyMiddleware, CombinedState, createStore, Store, Middleware } from "redux"
 import { inDevelopmentMode } from "./config"
-import reducers, { customMiddleware, ReduxStore } from "./dux/index"
+import reducers, { customMiddleware, ReduxStore } from "./ducks/index"
 
 export const newStore: () => Store<CombinedState<ReduxStore>, AnyAction> = () => {
-    // const predicate = () => true // if you want to see all actions
-    const predicate = () => false // if you want to see no actions
+    const predicate = () => true // if you want to see all actions
+    // const predicate = () => false // if you want to see no actions
 
     const sharedMiddleware: Middleware[] = [
         ...customMiddleware,
