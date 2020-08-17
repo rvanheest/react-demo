@@ -21,12 +21,14 @@ const Navigation = () => (
         <ul>
             <NavItem text="Home" path="/"/>
             <NavItem text="Counter" path="/counter"/>
+            <NavItem text="Counter with global state" path="/redux-counter"/>
             <NavItem text="Todo list" path="/todolist"/>
         </ul>
     </nav>
 )
 
 const CounterPage = React.lazy(() => import(/* webpackChunkName: "CounterPage" */"./counter/CounterPage"))
+const ReduxCounterPage = React.lazy(() => import(/* webpackChunkName: "ReduxCounterPage" */"./counter-redux/ReduxCounterPage"))
 const TodoPage = React.lazy(() => import(/* webpackChunkName: "TodoPage" */"./todo-list/TodoPage"))
 
 const App = () => (
@@ -43,6 +45,7 @@ const App = () => (
                         <p style={{ textAlign: "center" }}>You're home!!!</p>
                     </Route>
                     <Route path="/counter" exact component={CounterPage}/>
+                    <Route path="/redux-counter" exact component={ReduxCounterPage}/>
                     <Route path="/todolist" exact component={TodoPage}/>
                 </Suspense>
             </Switch>

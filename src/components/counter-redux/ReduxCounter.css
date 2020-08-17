@@ -1,0 +1,11 @@
+.redux-counter {
+    text-align: center;
+}
+
+.redux-counter p {
+    text-align: center;
+}
+
+.redux-counter button {
+    margin: 5px;
+}
