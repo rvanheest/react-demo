@@ -23,6 +23,7 @@ const Navigation = () => (
             <NavItem text="Counter" path="/counter"/>
             <NavItem text="Counter with global state" path="/redux-counter"/>
             <NavItem text="Todo list" path="/todolist"/>
+            <NavItem text="Todo list with global state" path="/redux-todolist"/>
         </ul>
     </nav>
 )
@@ -30,6 +31,7 @@ const Navigation = () => (
 const CounterPage = React.lazy(() => import(/* webpackChunkName: "CounterPage" */"./counter/CounterPage"))
 const ReduxCounterPage = React.lazy(() => import(/* webpackChunkName: "ReduxCounterPage" */"./counter-redux/ReduxCounterPage"))
 const TodoPage = React.lazy(() => import(/* webpackChunkName: "TodoPage" */"./todo-list/TodoPage"))
+const ReduxTodoPage = React.lazy(() => import(/* webpackChunkName: "ReduxTodoPage" */"./todo-list-redux/ReduxTodoPage"))
 
 const App = () => (
     <>
@@ -47,6 +49,7 @@ const App = () => (
                     <Route path="/counter" exact component={CounterPage}/>
                     <Route path="/redux-counter" exact component={ReduxCounterPage}/>
                     <Route path="/todolist" exact component={TodoPage}/>
+                    <Route path="/redux-todolist" exact component={ReduxTodoPage}/>
                 </Suspense>
             </Switch>
         </main>

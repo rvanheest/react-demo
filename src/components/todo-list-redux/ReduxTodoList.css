@@ -1,0 +1,9 @@
+.todo .emptyList {
+    font-style: italic;
+}
+
+.todo .todoList {
+    list-style-type: none;
+    text-align: left;
+    padding-left: 0;
+}
