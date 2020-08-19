@@ -1,10 +1,11 @@
 import React from "react"
+import { useSelector } from "react-redux"
 import ReduxTodoItem from "./ReduxTodoItem"
-import { useSelector } from "../../ducks"
+import { getTodoList } from "../../ducks/todolist"
 import "./ReduxTodoList.css"
 
 const ReduxTodoList = () => {
-    const list = useSelector(state => state.todo.list)
+    const list = useSelector(getTodoList)
 
     if (list.length == 0)
         return (

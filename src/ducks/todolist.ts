@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid"
 import { AnyAction } from "redux"
+import { ReduxStore } from "./index"
 
 enum TodoListAction {
     ADD_ITEM = "ADD_ITEM",
@@ -32,7 +33,7 @@ export const initialTodoListState: TodoListState = {
     ],
 }
 
-export default function reducer(state: TodoListState = initialTodoListState, action: AnyAction) {
+export default (state: TodoListState = initialTodoListState, action: AnyAction) => {
     switch (action.type) {
         case TodoListAction.ADD_ITEM:
             return {
@@ -76,3 +77,5 @@ export const deleteTodo = (id: string) => ({
     type: TodoListAction.DELETE_ITEM,
     payload: id,
 })
+
+export const getTodoList = (state: ReduxStore) => state.todo.list

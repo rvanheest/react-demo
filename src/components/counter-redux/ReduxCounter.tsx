@@ -1,11 +1,10 @@
 import React from "react"
-import { useDispatch } from "react-redux"
-import { useSelector } from "../../ducks"
-import { decrement, increment } from "../../ducks/counter"
+import { useDispatch, useSelector } from "react-redux"
+import { decrement, getCount, increment } from "../../ducks/counter"
 import "./ReduxCounter.css"
 
 const ReduxCounter = () => {
-    const count = useSelector(state => state.count.count)
+    const count = useSelector(getCount)
 
     const dispatch = useDispatch()
     const inc = () => dispatch(increment())

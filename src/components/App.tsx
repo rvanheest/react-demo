@@ -1,5 +1,5 @@
 import React, { Suspense } from "react"
-import { AnyAction, CombinedState, Store } from "redux"
+import { CombinedState, Store } from "redux"
 import { Provider } from "react-redux"
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom"
 import "./App.css"
@@ -57,7 +57,7 @@ const App = () => (
 )
 
 interface MainProps {
-    store: Store<CombinedState<ReduxStore>, AnyAction>
+    store: Store<CombinedState<ReduxStore>>
 }
 
 export default ({ store }: MainProps) => (
