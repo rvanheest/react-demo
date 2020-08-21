@@ -1,6 +1,5 @@
 import React from "react"
 import Counter from "./Counter"
-import './CounterPage.css'
 
 const CounterPage = () => (
     <div className="counter-page">

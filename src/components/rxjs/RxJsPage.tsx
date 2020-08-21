@@ -1,6 +1,5 @@
 import React, { Suspense } from "react"
 import { Link, Route, Switch, useRouteMatch } from "react-router-dom"
-import "./RxJsPage.css"
 
 interface NavItemProps {
     text: string

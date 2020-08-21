@@ -1,6 +1,5 @@
 import React from "react"
 import ReduxCounter from "./ReduxCounter"
-import './ReduxCounterPage.css'
 
 const ReduxCounterPage = () => (
     <div className="redux-counter-page">
