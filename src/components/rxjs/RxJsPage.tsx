@@ -20,11 +20,13 @@ const Navigation = ({basePath}: NaviationProps) => (
     <nav>
         <ul>
             <NavItem text="Mouse Position" path={`${basePath}/mouse-position`}/>
+            <NavItem text="Clock" path={`${basePath}/clock`}/>
         </ul>
     </nav>
 )
 
 const MousePositionPage = React.lazy(() => import(/* webpackChunkName: "MousePositionPage" */"./mouseposition/MousePositionPage"))
+const ClockPage = React.lazy(() => import(/* webpackChunkName: "ClockPage" */"./clock/ClockPage"))
 
 const RxJsPage = () => {
     const { url } = useRouteMatch()
@@ -37,6 +39,7 @@ const RxJsPage = () => {
             <Switch>
                 <Suspense fallback={<div>Loading page...</div>}>
                     <Route path={`${url}/mouse-position`} exact component={MousePositionPage}/>
+                    <Route path={`${url}/clock`} exact component={ClockPage}/>
                 </Suspense>
             </Switch>
         </div>
