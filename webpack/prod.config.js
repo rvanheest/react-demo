@@ -3,9 +3,11 @@ const { merge } = require('webpack-merge');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MinifyPlugin = require("babel-minify-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const commonConfig = require("./common.config");
+
+const publicPath = "/react-demo"
 
 module.exports = (env, argv) => merge(commonConfig(env, argv), ({
     mode: 'production',
@@ -15,6 +17,7 @@ module.exports = (env, argv) => merge(commonConfig(env, argv), ({
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].bundle.[contenthash].js',
         chunkFilename: '[name].bundle.[contenthash].js',
+        publicPath: `${publicPath}/`,
     },
 
     module: {
@@ -44,15 +47,14 @@ module.exports = (env, argv) => merge(commonConfig(env, argv), ({
 
     plugins: [
         new CleanWebpackPlugin(),
-        new webpack.DefinePlugin({
-            __DEVELOPMENT__: false,
+        new webpack.EnvironmentPlugin({
+            PUBLIC_URL: publicPath,
+            DEVELOPMENT: false,
         }),
         new MiniCssExtractPlugin({
             filename: '[name].bundle.[contenthash].css',
             chunkFilename: '[name].bundle.[contenthash].css',
         }),
-        // Minify JS
-        new MinifyPlugin(),
         // Minify CSS
         new webpack.LoaderOptionsPlugin({
             minimize: true,
@@ -63,6 +65,7 @@ module.exports = (env, argv) => merge(commonConfig(env, argv), ({
         minimize: true,
         minimizer: [
             new OptimizeCssAssetsPlugin({}),
+            new TerserPlugin({}),
         ],
         splitChunks: {
             chunks: 'all',

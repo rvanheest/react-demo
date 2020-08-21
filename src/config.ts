@@ -1,3 +1,1 @@
-declare const __DEVELOPMENT__: boolean
-
-export const inDevelopmentMode: boolean = __DEVELOPMENT__
+export const inDevelopmentMode: boolean = Boolean(process.env.DEVELOPMENT)

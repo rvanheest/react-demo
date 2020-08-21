@@ -3,11 +3,13 @@ const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const commonConfig = require("./common.config");
 
+const publicPath = "/"
+
 module.exports = (env, argv) => merge(commonConfig(env, argv), ({
     mode: 'development',
     target: 'web',
     output: {
-        publicPath: "/"
+        publicPath: publicPath
     },
 
     devServer: {
@@ -47,8 +49,9 @@ module.exports = (env, argv) => merge(commonConfig(env, argv), ({
     },
 
     plugins: [
-        new webpack.DefinePlugin({
-            __DEVELOPMENT__: true,
+        new webpack.EnvironmentPlugin({
+            PUBLIC_URL: publicPath,
+            DEVELOPMENT: true,
         }),
         new MiniCssExtractPlugin(),
     ]
