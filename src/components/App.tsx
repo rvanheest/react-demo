@@ -24,7 +24,7 @@ const Navigation = () => (
             <NavItem text="Counter with global state" path="/redux-counter"/>
             <NavItem text="Todo list" path="/todolist"/>
             <NavItem text="Todo list with global state" path="/redux-todolist"/>
-            <NavItem text="Mouse position" path="/mouse-position"/>
+            <NavItem text="RxJS demo's" path="/rxjs"/>
         </ul>
     </nav>
 )
@@ -33,7 +33,7 @@ const CounterPage = React.lazy(() => import(/* webpackChunkName: "CounterPage" *
 const ReduxCounterPage = React.lazy(() => import(/* webpackChunkName: "ReduxCounterPage" */"./counter-redux/ReduxCounterPage"))
 const TodoPage = React.lazy(() => import(/* webpackChunkName: "TodoPage" */"./todo-list/TodoPage"))
 const ReduxTodoPage = React.lazy(() => import(/* webpackChunkName: "ReduxTodoPage" */"./todo-list-redux/ReduxTodoPage"))
-const MousePositionPage = React.lazy(() => import(/* webpackChunkName: "MousePositionPage" */"./mouseposition/MousePositionPage"))
+const RxJsPage = React.lazy(() => import(/* webpackChunkName: "RxJsPage" */"./rxjs/RxJsPage"))
 
 const App = () => (
     <>
@@ -52,7 +52,7 @@ const App = () => (
                     <Route path="/redux-counter" exact component={ReduxCounterPage}/>
                     <Route path="/todolist" exact component={TodoPage}/>
                     <Route path="/redux-todolist" exact component={ReduxTodoPage}/>
-                    <Route path="/mouse-position" exact component={MousePositionPage}/>
+                    <Route path="/rxjs" component={RxJsPage}/>
                 </Suspense>
             </Switch>
         </main>
