@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { EMPTY, from, generate, interval, NEVER, Observable, of, range, Subscription } from "rxjs"
+import { EMPTY, from, interval, NEVER, Observable, of, range } from "rxjs"
 import "./Console.css"
 
 interface Demo<T = any> {
