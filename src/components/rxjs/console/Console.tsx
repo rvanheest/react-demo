@@ -97,19 +97,35 @@ const Console = () => {
     return (
         <>
             <div className="console-choices">
-                {
-                    demos.map((demo, index) => (
-                        <div className="console-choice" key={`demo-${index}`}>
-                            <input type="radio"
-                                   id={`demo-${index}`}
-                                   name="demos"
-                                   value={`demo-${index}`}
-                                   defaultChecked={index == 0}
-                                   onChange={() => setActiveDemo(demo)}/>
-                            <label htmlFor={`demo-${index}`}>{demo.description}</label>
-                        </div>
-                    ))
-                }
+                <div id="console-choices-left">
+                    {
+                        demos.slice(0, demos.length / 2).map((demo, index) => (
+                            <div className="console-choice" key={`demo-${index}`}>
+                                <input type="radio"
+                                       id={`demo-${index}`}
+                                       name="demos"
+                                       value={`demo-${index}`}
+                                       defaultChecked={index == 0}
+                                       onChange={() => setActiveDemo(demo)}/>
+                                <label htmlFor={`demo-${index}`}>{demo.description}</label>
+                            </div>
+                        ))
+                    }
+                </div>
+                <div id="console-choices-right">
+                    {
+                        demos.slice(demos.length / 2).map((demo, index) => (
+                            <div className="console-choice" key={`demo-${index}`}>
+                                <input type="radio"
+                                       id={`demo-${index}`}
+                                       name="demos"
+                                       value={`demo-${index}`}
+                                       onChange={() => setActiveDemo(demo)}/>
+                                <label htmlFor={`demo-${index}`}>{demo.description}</label>
+                            </div>
+                        ))
+                    }
+                </div>
             </div>
             <div className="console-output">
                 <div>
