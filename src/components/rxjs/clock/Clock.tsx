@@ -8,12 +8,8 @@ const Clock = () => {
 
     useEffect(() => {
         const subscription = interval(1000)
-            .pipe(
-                map(() => new Date())
-            )
-            .subscribe(x => {
-                setDatetime(x)
-            })
+            .pipe(map(() => new Date()))
+            .subscribe(setDatetime)
 
         return function cleanup() {
             subscription.unsubscribe()
@@ -22,7 +18,7 @@ const Clock = () => {
 
     return (
         <div className="clock">
-            <p>Current time</p>
+            <p><b>Current time</b></p>
             <p>{datetime.toLocaleString()}</p>
         </div>
     )
