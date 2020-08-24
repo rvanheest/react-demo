@@ -1,66 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
-import { EMPTY, from, interval, NEVER, Observable, of, range } from "rxjs"
+import ConsoleChoice from "./ConsoleChoice"
+import demos from "./DemoQueries"
 import "./Console.css"
-
-interface Demo<T = any> {
-    description: string | JSX.Element
-    text: string
-    stream$: Observable<T>
-}
-
-const demos: Demo[] = [
-    {
-        description: <code>never()</code>,
-        text: "never",
-        stream$: NEVER,
-    },
-    {
-        description: <code>empty()</code>,
-        text: "empty",
-        stream$: EMPTY,
-    },
-    {
-        description: <code>of(1, 2, 3)</code>,
-        text: "of(1, 2, 3)",
-        stream$: of(1, 2, 3),
-    },
-    {
-        description: <code>from([1, 2, 3, 4, 5, 6])</code>,
-        text: "from([1, 2, 3, 4, 5, 6])",
-        stream$: from([1, 2, 3, 4, 5, 6]),
-    },
-    {
-        description: <span><code>create</code> - 3x <em>next</em>, then <em>complete</em></span>,
-        text: "create - 3x next, then complete",
-        stream$: new Observable(observer => {
-            observer.next(1)
-            observer.next(2)
-            observer.next(3)
-            observer.complete()
-        }),
-    },
-    {
-        description: <span><code>create</code> - 3x <em>next</em>, then <em>error</em></span>,
-        text: "create - 3x next, then error",
-        stream$: new Observable(observer => {
-            observer.next(1)
-            observer.next(2)
-            observer.next(3)
-            observer.error(new Error("Biem!!!"))
-            observer.complete()
-        }),
-    },
-    {
-        description: <code>range(0, 10)</code>,
-        text: "range(0, 10)",
-        stream$: range(0, 10),
-    },
-    {
-        description: <code>interval(1000)</code>,
-        text: "interval(1000)",
-        stream$: interval(1000),
-    },
-]
 
 const Console = () => {
     const [activeDemo, setActiveDemo] = useState(demos[0])
@@ -99,30 +40,23 @@ const Console = () => {
             <div className="console-choices">
                 <div id="console-choices-left">
                     {
-                        demos.slice(0, demos.length / 2).map((demo, index) => (
-                            <div className="console-choice" key={`demo-${index}`}>
-                                <input type="radio"
-                                       id={`demo-${index}`}
-                                       name="demos"
-                                       value={`demo-${index}`}
-                                       defaultChecked={index == 0}
-                                       onChange={() => setActiveDemo(demo)}/>
-                                <label htmlFor={`demo-${index}`}>{demo.description}</label>
-                            </div>
+                        demos.slice(0, Math.ceil(demos.length / 2)).map((demo, index) => (
+                            <ConsoleChoice key={`demo-${index}`}
+                                           demo={demo}
+                                           id={`demo-left-${index}`}
+                                           defaultChecked={index == 0}
+                                           onSelect={setActiveDemo}/>
                         ))
                     }
                 </div>
                 <div id="console-choices-right">
                     {
-                        demos.slice(demos.length / 2).map((demo, index) => (
-                            <div className="console-choice" key={`demo-${index}`}>
-                                <input type="radio"
-                                       id={`demo-${index}`}
-                                       name="demos"
-                                       value={`demo-${index}`}
-                                       onChange={() => setActiveDemo(demo)}/>
-                                <label htmlFor={`demo-${index}`}>{demo.description}</label>
-                            </div>
+                        demos.slice(Math.ceil(demos.length / 2)).map((demo, index) => (
+                            <ConsoleChoice key={`demo-${index}`}
+                                           demo={demo}
+                                           id={`demo-right-${index}`}
+                                           defaultChecked={false}
+                                           onSelect={setActiveDemo}/>
                         ))
                     }
                 </div>
