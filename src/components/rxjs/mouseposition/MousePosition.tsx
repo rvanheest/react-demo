@@ -7,30 +7,33 @@ const MousePosition = () => {
     const ref = useRef<any>(null)
     const [x, setX] = useState(0)
     const [y, setY] = useState(0)
+    const [throttle, setThrottle] = useState(false)
 
     useEffect(() => {
-        const subscription = fromEvent<MouseEvent>(ref.current, "mousemove")
-            .pipe(
-                throttleTime(100),
-                map(event => [event.offsetX, event.offsetY]),
-            )
-            .subscribe(([x, y]) => {
-                setX(x)
-                setY(y)
-            })
+        const mouseMoves$ = fromEvent<MouseEvent>(ref.current, "mousemove")
+        const throttled$ = throttle ? mouseMoves$.pipe(throttleTime(100)) : mouseMoves$
+        const coordinates$ = throttled$.pipe(map(event => [event.offsetX, event.offsetY]))
+        const subscription = coordinates$.subscribe(([x, y]) => {
+            setX(x)
+            setY(y)
+        })
 
         return function cleanup() {
             return subscription.unsubscribe()
         }
-    }, [])
-
-
+    }, [throttle])
 
     return (
-        <div ref={ref} className="canvas">
-            <p>x: {x}</p>
-            <p>y: {y}</p>
-        </div>
+        <>
+            <div id="throttling">
+                <input type="checkbox" id="throttled" checked={throttle} onChange={() => setThrottle(checked => !checked)}/>
+                <label htmlFor="throttled">Throttle mouse moves</label>
+            </div>
+            <div ref={ref} className="canvas">
+                <p>x: {x}</p>
+                <p>y: {y}</p>
+            </div>
+        </>
     )
 }
 
