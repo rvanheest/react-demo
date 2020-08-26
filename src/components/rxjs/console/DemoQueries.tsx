@@ -2,6 +2,7 @@ import React from "react"
 import { EMPTY, from, interval, NEVER, Observable, of, range, throwError } from "rxjs"
 import { catchError, switchMap, tap } from "rxjs/operators"
 import conwayLookAndSay from "./RxConwayLookAndSay"
+import mergeMapDemo from "./RxSwitchMapOperator"
 
 export interface Demo<T = any> {
     description: string | JSX.Element
@@ -64,15 +65,7 @@ const demos: Demo[] = [
     {
         description: <span>switchMap</span>,
         text: "switchMap",
-        stream$: range(0, 10).pipe(
-            switchMap(i => {
-                return (i > 4 && i < 7 ? throwError(new Error(`ERRRRROOOOORRRR: i = ${i}`)) : of(i))
-                    .pipe(
-                        tap({ error: err => console.error(err) }),
-                        catchError(() => EMPTY),
-                    )
-            }),
-        ),
+        stream$: mergeMapDemo(),
     },
     {
         description: <span>Conway LookAndSay (<a href="https://en.wikipedia.org/wiki/Look-and-say_sequence"
