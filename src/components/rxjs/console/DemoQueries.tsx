@@ -1,6 +1,7 @@
 import React from "react"
 import { EMPTY, from, interval, NEVER, Observable, of, range, throwError } from "rxjs"
 import { catchError, switchMap, tap } from "rxjs/operators"
+import conwayLookAndSay from "./RxConwayLookAndSay"
 
 export interface Demo<T = any> {
     description: string | JSX.Element
@@ -72,6 +73,12 @@ const demos: Demo[] = [
                     )
             }),
         ),
+    },
+    {
+        description: <span>Conway LookAndSay (<a href="https://en.wikipedia.org/wiki/Look-and-say_sequence"
+                                                 target="_blank">link</a>)</span>,
+        text: "Conway LookAndSay",
+        stream$: conwayLookAndSay(),
     },
 ]
 
