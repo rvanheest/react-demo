@@ -16,10 +16,10 @@ function emptyState(value: number): State {
 
 function next(nums: Observable<number>): Observable<number> {
     return nums.pipe(
-        scan((acc, value) => acc.value === value ? incrementCount(acc) : emptyState(value), emptyState(0)),
+        scan((state, num) => state.value === num ? incrementCount(state) : emptyState(num), emptyState(0)),
         bufferCount(2, 1),
-        filter(value => value.length == 1 || value[0].value !== value[1].value),
-        mergeMap(value => of(value[0].count, value[0].value)),
+        filter(states => states.length == 1 || states[0].value !== states[1].value),
+        mergeMap(states => of(states[0].count, states[0].value)),
     )
 }
 
@@ -29,6 +29,6 @@ export default function conwayLookAndSay(): Observable<string> {
         scan(next, of(1)),
         startWith(of(1)),
         take(10),
-        mergeMap(seq => seq.pipe(reduce((acc, value) => acc + value, ""))),
+        mergeMap(line => line.pipe(reduce((acc, value) => acc + value, ""))),
     )
 }
