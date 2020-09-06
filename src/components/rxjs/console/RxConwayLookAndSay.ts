@@ -28,7 +28,7 @@ export default function conwayLookAndSay(): Observable<string> {
         repeat(),
         scan(next, of(1)),
         startWith(of(1)),
-        take(10),
         mergeMap(line => line.pipe(reduce((acc, value) => acc + value, ""))),
+        take(10),
     )
 }

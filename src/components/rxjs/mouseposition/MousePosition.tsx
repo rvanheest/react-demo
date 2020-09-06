@@ -4,13 +4,13 @@ import { map, throttleTime } from "rxjs/operators"
 import "./MousePosition.css"
 
 const MousePosition = () => {
-    const ref = useRef<any>(null)
+    const ref = useRef<HTMLDivElement>(null)
     const [x, setX] = useState(0)
     const [y, setY] = useState(0)
     const [throttle, setThrottle] = useState(false)
 
     useEffect(() => {
-        const mouseMoves$ = fromEvent<MouseEvent>(ref.current, "mousemove")
+        const mouseMoves$ = fromEvent<MouseEvent>(ref.current!!, "mousemove")
         const throttled$ = throttle ? mouseMoves$.pipe(throttleTime(100)) : mouseMoves$
         const coordinates$ = throttled$.pipe(map(event => [event.offsetX, event.offsetY]))
         const subscription = coordinates$.subscribe(([x, y]) => {
