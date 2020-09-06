@@ -1,5 +1,5 @@
 import { Observable, of } from "rxjs"
-import { bufferCount, filter, mergeMap, reduce, repeat, scan, startWith, take } from "rxjs/operators"
+import { bufferCount, filter, mergeMap, reduce, repeat, scan, startWith } from "rxjs/operators"
 
 interface State {
     value: number
@@ -29,6 +29,5 @@ export default function conwayLookAndSay(): Observable<string> {
         scan(next, of(1)),
         startWith(of(1)),
         mergeMap(line => line.pipe(reduce((acc, value) => acc + value, ""))),
-        take(10),
     )
 }
