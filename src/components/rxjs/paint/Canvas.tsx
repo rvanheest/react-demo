@@ -26,31 +26,41 @@ interface Point {
     y: number
 }
 
-interface Config {
+interface Coords {
     prevCoord: Point
     coord: Point
+}
+
+interface Config extends Coords {
     color: string
     thickness: number
 }
 
-function paint(canvas: CanvasRenderingContext2D) {
-    return function (config: Config) {
-        const { prevCoord: { x: x1, y: y1 }, coord: { x: x2, y: y2 }, color, thickness } = config
+function paint(canvas: CanvasRenderingContext2D, config: Config) {
+    const { prevCoord: { x: x1, y: y1 }, coord: { x: x2, y: y2 }, color, thickness } = config
 
-        canvas.lineWidth = thickness
-        canvas.strokeStyle = color
-        canvas.moveTo(x1, y1)
-        canvas.lineTo(x2, y2)
-        canvas.stroke()
-    }
+    canvas.lineWidth = thickness
+    canvas.strokeStyle = color
+    canvas.moveTo(x1, y1)
+    canvas.lineTo(x2, y2)
+    canvas.stroke()
 }
 
-function useColor(color: string): [() => JSX.Element, () => Observable<string>] {
+function newPath(canvas: CanvasRenderingContext2D) {
+    canvas.closePath()
+    canvas.beginPath()
+}
+
+interface ColorProps {
+    setLineColor: (color: string) => void
+}
+
+function useColor(color: string): [(props: ColorProps) => JSX.Element, () => Observable<string>] {
     const ref = useRef<HTMLDivElement>(null)
     const click$ = () => fromEvent<MouseEvent>(ref.current!, "click").pipe(map(() => color))
 
-    const Color = () => (
-        <div ref={ref} className="color" style={{ background: color }}/>
+    const Color = ({setLineColor}: ColorProps) => (
+        <div ref={ref} className="color" style={{ background: color }} onClick={() => setLineColor(color)}/>
     )
 
     return [Color, click$]
@@ -62,8 +72,10 @@ const Canvas = () => {
 
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const lineThicknessRef = useRef<HTMLSelectElement>(null)
+
     const [lineColor, setLineColor] = useState<string>(defaultColor)
     const [lineThickness, setLineThickness] = useState<number>(defaultLineThickness)
+
     const [Black, blackClick$] = useColor("black")
     const [Gray, grayClick$] = useColor("darkgray")
     const [DarkRed, darkRedClick$] = useColor("darkred")
@@ -121,7 +133,6 @@ const Canvas = () => {
             mergeMap(color => color),
             startWith(lineColor),
             distinctUntilChanged(),
-            tap(color => setLineColor(color)),
         )
 
         const lineThickness$ = fromEvent<ChangeEvent<HTMLSelectElement>>(lineThicknessRef.current!, "change")
@@ -133,10 +144,7 @@ const Canvas = () => {
         const config$ = combineLatest([color$, lineThickness$])
             .pipe(
                 map(([color, thickness]) => ({ color, thickness })),
-                tap(() => {
-                    canvas.closePath()
-                    canvas.beginPath()
-                }),
+                tap(() => newPath(canvas)),
             )
 
         const paintSubscription = mouseMove$
@@ -152,7 +160,7 @@ const Canvas = () => {
                 withLatestFrom(config$, (coords, config) => ({ ...coords, ...config })),
             )
             .subscribe({
-                next: paint(canvas),
+                next: config => paint(canvas, config),
                 error: console.error,
                 complete: () => console.log("COMPLETED PAINT!"),
             })
@@ -185,28 +193,28 @@ const Canvas = () => {
                 </div>
                 <div style={{ float: "left" }}>
                     <div className="color-picker">
-                        <Black/>
-                        <Gray/>
-                        <DarkRed/>
-                        <Red/>
-                        <Orange/>
-                        <Yellow/>
-                        <Green/>
-                        <Turquoise/>
-                        <Blue/>
-                        <Purple/>
+                        <Black setLineColor={setLineColor}/>
+                        <Gray setLineColor={setLineColor}/>
+                        <DarkRed setLineColor={setLineColor}/>
+                        <Red setLineColor={setLineColor}/>
+                        <Orange setLineColor={setLineColor}/>
+                        <Yellow setLineColor={setLineColor}/>
+                        <Green setLineColor={setLineColor}/>
+                        <Turquoise setLineColor={setLineColor}/>
+                        <Blue setLineColor={setLineColor}/>
+                        <Purple setLineColor={setLineColor}/>
                     </div>
                     <div className="color-picker">
-                        <White/>
-                        <LightGray/>
-                        <Brown/>
-                        <Pink/>
-                        <Gold/>
-                        <LightYellow/>
-                        <LightGreen/>
-                        <LightTurquoise/>
-                        <SlateGray/>
-                        <LavenderGray/>
+                        <White setLineColor={setLineColor}/>
+                        <LightGray setLineColor={setLineColor}/>
+                        <Brown setLineColor={setLineColor}/>
+                        <Pink setLineColor={setLineColor}/>
+                        <Gold setLineColor={setLineColor}/>
+                        <LightYellow setLineColor={setLineColor}/>
+                        <LightGreen setLineColor={setLineColor}/>
+                        <LightTurquoise setLineColor={setLineColor}/>
+                        <SlateGray setLineColor={setLineColor}/>
+                        <LavenderGray setLineColor={setLineColor}/>
                     </div>
                 </div>
             </div>

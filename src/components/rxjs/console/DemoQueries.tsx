@@ -2,8 +2,9 @@ import React from "react"
 import { EMPTY, from, interval, NEVER, Observable, of, range } from "rxjs"
 import conwayLookAndSay from "./RxConwayLookAndSay"
 import mergeMapDemo from "./RxSwitchMapOperator"
-import fibonacci from "./RxFibonacci"
+import { goldenRatio, fibonacci } from "./RxFibonacci"
 import pascal from "./RxPascal"
+import { take } from "rxjs/operators"
 
 export interface Demo<T = any> {
     description: string | JSX.Element
@@ -71,18 +72,23 @@ const demos: Demo[] = [
     {
         description: <span>Fibonacci</span>,
         text: "Fibonacci",
-        stream$: fibonacci(),
+        stream$: fibonacci().pipe(take(20)),
+    },
+    {
+        description: <span>Golden ratio approximation</span>,
+        text: "Golden ratio approximation",
+        stream$: goldenRatio().pipe(take(20)),
     },
     {
         description: <span>Pascal's Triangle</span>,
         text: "Pascal's Triangle",
-        stream$: pascal(),
+        stream$: pascal().pipe(take(10)),
     },
     {
         description: <span>Conway LookAndSay (<a href="https://en.wikipedia.org/wiki/Look-and-say_sequence"
                                                  target="_blank">link</a>)</span>,
         text: "Conway LookAndSay",
-        stream$: conwayLookAndSay(),
+        stream$: conwayLookAndSay().pipe(take(10)),
     },
 ]
 
