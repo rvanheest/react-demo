@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react"
 import "./Canvas.css"
 import { fromEvent, Observable } from "rxjs"
-import { filter, map } from "rxjs/operators"
+import { filter, mapTo } from "rxjs/operators"
 
 function mouseButtonEvent(canvas: HTMLCanvasElement, event: string, value: boolean): Observable<boolean> {
     return fromEvent<MouseEvent>(canvas, event)
         .pipe(
             filter(e => e.button === 0),
-            map(() => value),
+            mapTo(value),
         )
 }
 
@@ -55,7 +55,7 @@ interface ColorProps {
 
 function useColor(color: string): [(props: ColorProps) => JSX.Element, () => Observable<string>] {
     const ref = useRef<HTMLDivElement>(null)
-    const click$ = () => fromEvent<MouseEvent>(ref.current!, "click").pipe(map(() => color))
+    const click$ = () => fromEvent<MouseEvent>(ref.current!, "click").pipe(mapTo(color))
 
     const Color = ({setLineColor}: ColorProps) => (
         <div ref={ref} className="color" style={{ background: color }} onClick={() => setLineColor(color)}/>
