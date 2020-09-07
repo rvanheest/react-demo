@@ -6,6 +6,7 @@ import {
     distinctUntilChanged,
     filter,
     map,
+    mapTo,
     mergeMap,
     startWith,
     tap,
@@ -17,7 +18,7 @@ function mouseButtonEvent(canvas: HTMLCanvasElement, event: string, value: boole
     return fromEvent<MouseEvent>(canvas, event)
         .pipe(
             filter(e => e.button === 0),
-            map(() => value),
+            mapTo(value),
         )
 }
 
@@ -57,7 +58,7 @@ interface ColorProps {
 
 function useColor(color: string): [(props: ColorProps) => JSX.Element, () => Observable<string>] {
     const ref = useRef<HTMLDivElement>(null)
-    const click$ = () => fromEvent<MouseEvent>(ref.current!, "click").pipe(map(() => color))
+    const click$ = () => fromEvent<MouseEvent>(ref.current!, "click").pipe(mapTo(color))
 
     const Color = ({setLineColor}: ColorProps) => (
         <div ref={ref} className="color" style={{ background: color }} onClick={() => setLineColor(color)}/>
